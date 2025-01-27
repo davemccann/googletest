@@ -19,11 +19,14 @@ MODULE.bazel.lock
 *.VC.opendb
 *.suo
 *.user
+*.vcxproj
+*.vcxproj.filters
 _ReSharper.Caches/
 Win32-Debug/
 Win32-Release/
 x64-Debug/
 x64-Release/
+bin-obj/
 
 # VSCode files
 .cache/
