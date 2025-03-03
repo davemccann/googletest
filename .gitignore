@@ -90,3 +90,4 @@ googlemock/gtest
 /CMakeCache.txt
 /ALL_BUILD.vcxproj.filters
 /ALL_BUILD.vcxproj
+compile_commands.json

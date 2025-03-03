@@ -1,36 +1,41 @@
-local configOutputPath = "%{cfg.platform}/%{cfg.buildcfg}"
-
 project("googletest")
-kind("StaticLib")
-language("C++")
-cppdialect("C++17")
-staticruntime("Off")
+    kind("StaticLib")
+    language("C++")
+    cppdialect("C++20")
+    staticruntime("off")
 
-targetdir("bin/" .. configOutputPath)
-objdir("bin-obj/" .. configOutputPath)
+    targetdir ("bin/" .. "%{cfg.platform}" .. "%{cfg.buildcfg}")
+    objdir ("bin-obj/" .. "%{cfg.platform}" .. "%{cfg.buildcfg}")
 
-configmap({
-	["Debug"] = "DebugStatic",
-	["Release"] = "ReleaseStatic",
-})
+    configmap({
+        ["Debug"] = "DebugStatic",
+        ["Release"] = "ReleaseStatic",
+    })
 
-includedirs({
-	"googletest/include",
-	"googletest/",
-})
+    includedirs {
+        "googletest/include",
+        "googletest/",
+    }
 
-files({
-	"googletest/include/gtest/**.h",
-	"googletest/src/gtest-all.cc",
-})
+    files {
+        "googletest/include/gtest/**.h",
+        "googletest/src/gtest-all.cc",
+    }
 
-filter("platforms:x64")
-system("Windows")
+    filter "action:gmake"
+        buildoptions { "-MJ compile_commands.json" }
 
-filter("configurations:Debug*")
-runtime("Debug")
-symbols("On")
+    filter { "system:windows", "toolset:clang" }
+        defines { "_UNICODE", "UNICODE" }
+        buildoptions { "-g -gcodeview" }
 
-filter("configurations:Release*")
-runtime("Release")
-optimize("Speed")
+    filter "configurations:*"
+        symbols "on"
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        optimize "off"
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
