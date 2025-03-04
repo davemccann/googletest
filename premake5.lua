@@ -7,11 +7,6 @@ project("googletest")
     targetdir ("bin/" .. "%{cfg.platform}" .. "%{cfg.buildcfg}")
     objdir ("bin-obj/" .. "%{cfg.platform}" .. "%{cfg.buildcfg}")
 
-    configmap({
-        ["Debug"] = "DebugStatic",
-        ["Release"] = "ReleaseStatic",
-    })
-
     includedirs {
         "googletest/include",
         "googletest/",
